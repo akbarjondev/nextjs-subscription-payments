@@ -25,7 +25,8 @@ export default function AuthUI() {
               email_input_placeholder: 'Emailingizni kiriting',
               password_label: 'Parol',
               password_input_placeholder: 'Parolingizni kiriting',
-              button_label: 'Kirish'
+              button_label: 'Kirish',
+              loading_button_label: 'Yuklanmoqda...'
             }
           }
         }}

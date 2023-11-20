@@ -6,9 +6,16 @@ import Link from 'next/link';
 
 export default async function Navbar() {
   const supabase = createServerSupabaseClient();
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
+  const user = (await supabase.auth.getSession()).data.session?.user;
+
+  if (user) {
+    const data = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user.id)
+      .single();
+    console.log('profile: ', data);
+  }
 
   return (
     <nav className={s.root}>
@@ -22,8 +29,8 @@ export default async function Navbar() {
               <Logo />
             </Link>
             <nav className="hidden ml-6 space-x-2 lg:block">
-              <Link href="/about" className={s.link}>
-                Biz haqimizda
+              <Link href="/queues" className={s.link}>
+                Navbatlar
               </Link>
               {user && (
                 <Link href="/dashboard" className={s.link}>
