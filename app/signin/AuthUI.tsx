@@ -11,21 +11,24 @@ export default function AuthUI() {
     <div className="flex flex-col space-y-4">
       <Auth
         supabaseClient={supabase}
-        providers={['github']}
-        redirectTo={`${getURL()}/auth/callback`}
-        magicLink={true}
+        providers={[]}
+        redirectTo={`${getURL()}/dashboard`}
         appearance={{
-          theme: ThemeSupa,
+          theme: ThemeSupa
+        }}
+        theme={'light'}
+        showLinks={false}
+        localization={{
           variables: {
-            default: {
-              colors: {
-                brand: '#404040',
-                brandAccent: '#52525b'
-              }
+            sign_in: {
+              email_label: 'Email',
+              email_input_placeholder: 'Emailingizni kiriting',
+              password_label: 'Parol',
+              password_input_placeholder: 'Parolingizni kiriting',
+              button_label: 'Kirish'
             }
           }
         }}
-        theme="dark"
       />
     </div>
   );
