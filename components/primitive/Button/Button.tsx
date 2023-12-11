@@ -1,12 +1,10 @@
 'use client';
 
-import cn from 'classnames';
+import styles from './Button.module.css';
+import LoadingDots from '@/components/ui/LoadingDots';
+import cn from 'clsx';
 import React, { forwardRef, useRef, ButtonHTMLAttributes } from 'react';
 import { mergeRefs } from 'react-merge-refs';
-
-import LoadingDots from '@/components/ui/LoadingDots';
-
-import styles from './Button.module.css';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'slim' | 'flat';

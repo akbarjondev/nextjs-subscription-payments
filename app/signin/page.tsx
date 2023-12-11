@@ -3,6 +3,11 @@ import { getSession } from '@/app/supabase-server';
 import Logo from '@/components/icons/Logo';
 import { redirect } from 'next/navigation';
 
+export const metadata = {
+  title: 'Kirish',
+  description: 'Kirish sahifasi'
+};
+
 export default async function SignIn() {
   const session = await getSession();
 

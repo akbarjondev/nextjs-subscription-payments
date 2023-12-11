@@ -1,21 +1,24 @@
+'use client';
+
+import { Button, buttonVariants } from '../button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  DropdownMenuLabel
+} from '../dropdown-menu';
 import s from './Navbar.module.css';
 import SignOutButton from './SignOutButton';
-import { createServerSupabaseClient } from '@/app/supabase-server';
+import { useUser } from '@/components/hoc/user-context';
 import Logo from '@/components/icons/Logo';
 import Link from 'next/link';
 
 export default async function Navbar() {
-  const supabase = createServerSupabaseClient();
-  const user = (await supabase.auth.getSession()).data.session?.user;
+  const user = useUser();
 
-  if (user) {
-    const data = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id)
-      .single();
-    console.log('profile: ', data);
-  }
+  console.log(user);
 
   return (
     <nav className={s.root}>
@@ -41,7 +44,26 @@ export default async function Navbar() {
           </div>
           <div className="flex justify-end flex-1 space-x-8">
             {user ? (
-              <SignOutButton />
+              <>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline">+ Yangi qo'shish</Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>Navbatlar</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <Link
+                        className={buttonVariants({ variant: 'outline' })}
+                        href="/queues/new"
+                      >
+                        Navbat qo'shish
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <SignOutButton />
+              </>
             ) : (
               <Link href="/signin" className={s.link}>
                 Kirish
